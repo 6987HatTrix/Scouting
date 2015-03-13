@@ -31,18 +31,34 @@
 				<input type="number" placeholder="Team ####" name="teamNum" id="basic" value=""/>
 			</div>
 			<div class="ui-block-c">
-				<select name="starting-position" id="flip-1" data-role="slider">
-					<option value="floor">Floor</option>
+				<select name="starting-position" id="starting-position" data-role="slider">
 					<option value="ramp">Ramp</option>
+					<option value="floor">Floor</option>
 				</select> 
 			</div>
+			<script type="text/javascript">
+				function onStartPosChange(event){
+					var value = event.target.value
+					console.log(value);
+					if (value == "floor"){
+						$("#departed-ramp").attr("checked", false)
+						$("#departed-ramp").checkboxradio('refresh');
+						$("#departed-ramp").checkboxradio('disable');
+					}else{
+						$("#departed-ramp").checkboxradio('enable');
+					}
+					//if (event.target.innerText.toLower() == 'floor'){}
+				}
+				
+				$( "#starting-position" ).on( 'slidestop', onStartPosChange );
+			</script>
 		</div>
 		
 		<hr>
 		
 		<fieldset data-role="controlgroup" data-type="horizontal">
-			<input type="checkbox" name="departed-ramp" id="checkbox-1" class="custom" />
-				<label for="checkbox-1">Departed Ramp</label>
+			<input type="checkbox" name="departed-ramp" id="departed-ramp" class="custom" />
+				<label for="departed-ramp">Departed Ramp</label>
 			<input type="checkbox" name="knocked-kickstand" id="checkbox-2" class="custom" />
 				<label for="checkbox-2">Kickstand</label>
 			<input type="checkbox" name="parked" id="checkbox-3" class="custom" />
