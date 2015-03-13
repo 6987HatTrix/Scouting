@@ -1,0 +1,106 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>My Page</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	
+	<style type="text/css">
+			div.ui-slider-switch { width: 93%; margin: .3em;}
+	</style>
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>Digital Scouting: Prototype 1</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<div class="ui-grid-b">
+			<div class="ui-block-a">
+				<select	 name="alliance" id="flip-2" data-role="slider">
+					<option value="floor">Red</option>
+					<option value="ramp">Blue</option>
+				</select> 
+			</div>
+			<div class="ui-block-b">
+				<input type="number" placeholder="Team ####" name="teamNum" id="basic" value=""/>
+			</div>
+			<div class="ui-block-c">
+				<select name="starting-position" id="flip-1" data-role="slider">
+					<option value="floor">Floor</option>
+					<option value="ramp">Ramp</option>
+				</select> 
+			</div>
+		</div>
+		
+		<fieldset data-role="controlgroup" data-type="horizontal">
+			<input type="checkbox" name="departed-ramp" id="checkbox-1" class="custom" />
+				<label for="checkbox-1">Departed Ramp</label>
+			<input type="checkbox" name="knocked-kickstand" id="checkbox-2" class="custom" />
+				<label for="checkbox-2">Kickstand</label>
+			<input type="checkbox" name="parked" id="checkbox-3" class="custom" />
+				<label for="checkbox-3">Parked</label>
+		</fieldset>
+		
+		<!--<fieldset data-role="controlgroup" data-type="horizontal">
+			<input type="checkbox" name="auto-scored-small" id="checkbox-10" class="custom" />
+				<label for="checkbox-10">Short</label>
+			<input type="checkbox" name="auto-scored-medium" id="checkbox-11" class="custom" />
+				<label for="checkbox-11">Medium</label>
+			<input type="checkbox" name="auto-scored-tall" id="checkbox-12" class="custom" />
+				<label for="checkbox-12">Tall</label>
+			<input type="checkbox" name="auto-scored-center" id="checkbox-13" class="custom" />
+				<label for="checkbox-13">Center</label>
+		</fieldset>-->
+		
+		<div class="ui-grid-a">
+			<div class="ui-block-a">
+				<select name="auto-smallball" id="auto-smallball">
+				   <option value="">Small noscore</option>
+				   <option value="30">30cm tube</option>
+				   <option value="60">60cm tube</option>
+				   <option value="90">90cm tube</option>
+				   <option value="120">120cm tube</option>
+				</select>
+			</div>
+			<div class="ui-block-b">
+				<select name="auto-largeball" id="auto-largeball">
+				   <option value="">Large noscore</option>
+				   <option value="30">30cm tube</option>
+				   <option value="60">60cm tube</option>
+				   <option value="90">90cm tube</option>
+				   <option value="120">120cm tube</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="ui-grid-a">
+			<div class="ui-block-a">
+				<select name="auto-dragging" id="auto-dragging">
+				   <option value="0">0 goals parked</option>
+				   <option value="1">1 goal parked</option>
+				   <option value="2">2 goals parked</option>
+				   <option value="3">3 goals parked</option>
+				</select>
+			</div>
+			<div class="ui-block-b">
+				<select name="auto-defense" id="auto-defense">
+				   <option value="none">No Defense</option>
+				   <option value="ineffective">Ineffective</option>
+				   <option value="effective">Effective</option>
+				</select>
+			</div>
+		</div>
+		<hr>
+		
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+</body>
+</html>
