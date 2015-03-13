@@ -10,7 +10,7 @@
 	<style type="text/css">
 			div.ui-slider-switch { width: 93%; margin: .3em;}
 			input.ui-slider-input {
-				width: 1.6em !important;
+				/*width: 1.6em !important;*/
 			}
 	</style>
 </head> 
@@ -19,7 +19,7 @@
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>Digital Scouting: Prototype 1</h1>
+		<h1>Digital Scouting</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">	
@@ -44,7 +44,7 @@
 					var value = event.target.value
 					console.log(value);
 					if (value == "floor"){
-						$("#departed-ramp").attr("checked", false)
+						$("#departed-ramp").attr("checked", false);
 						$("#departed-ramp").checkboxradio('refresh');
 						$("#departed-ramp").checkboxradio('disable');
 					}else{
@@ -127,6 +127,37 @@
 			<!--<label for="teleop-90cm">90cm:</label>-->
 			<input type="range" name="teleop-90cm" id="teleop-90cm" value="0" min="0" max="90" step="3" data-highlight="true"/>
 		</div>
+		
+		<div data-role="fieldcontain"> <!--Endgame-->
+			<!--<label for="teleop-30cm">30cm:</label>-->
+			<input type="range" name="endgame-120cm" id="teleop-30cm" value="0" min="0" max="30" step="1" data-highlight="true"/>
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<select name="endgame-parking" id="endgame-parking">
+					   <option value="0">0 goals parked</option>
+					   <option value="1">1 goal parked</option>
+					   <option value="2">2 goals parked</option>
+					   <option value="3">3 goals parked</option>
+					</select>
+				</div>
+				<div class="ui-block-b">
+					<select name="endgame-ramping" id="endgame-ramping">
+					   <option value="0">0 goals ramped</option>
+					   <option value="1">1 goal ramped</option>
+					   <option value="2">2 goals ramped</option>
+					   <option value="3">3 goals ramped</option>
+					</select>
+				</div>
+				<div class="ui-block-c">
+					<select name="endgame-robot" id="endgame-robot">
+					   <option value="none">None</option>
+					   <option value="ineffective">On ramp (robot)</option>
+					   <option value="effective">In Parking Zone (robot)</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
 		
 		
 	</div><!-- /content -->
