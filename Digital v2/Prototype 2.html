@@ -11,10 +11,26 @@
 
 	<style type="text/css">
 		div.ui-slider-switch { width: 93%; margin: .3em;}
-		input.ui-slider-input {
-			/*width: 1.6em !important;*/
-		} 
 	</style>
+
+
+	<script type="text/javascript">
+		function onStartPosChange(event){
+			var value = event.target.value
+			console.log(value);
+			if (value == "floor"){
+				$("#departed-ramp").attr("checked", false);
+				$("#departed-ramp").checkboxradio('refresh');
+				$("#departed-ramp").checkboxradio('disable');
+			}else{
+				$("#departed-ramp").checkboxradio('enable');
+			}
+		}
+
+		$(window).load(
+			function(){$( "#starting-position" ).on( 'slidestop', onStartPosChange );}
+			);
+	</script>
 </head> 
 <body> 
 
@@ -25,117 +41,60 @@
 		</div><!-- /header -->
 
 		<div data-role="content">	
-			<div class="ui-grid-b">
-				<div class="ui-block-a">
-					<select	 name="alliance" id="flip-2" data-role="slider">
-						<option value="floor">Red</option>
-						<option value="ramp">Blue</option>
-					</select> 
-				</div>
-				<div class="ui-block-b">
-					<input type="number" placeholder="Team ####" name="teamNum" id="basic" value=""/>
-				</div>
-				<div class="ui-block-c">
-					<select name="starting-position" id="starting-position" data-role="slider">
-						<option value="ramp">Ramp</option>
-						<option value="floor">Floor</option>
-					</select> 
-				</div>
-				<script type="text/javascript">
-					function onStartPosChange(event){
-						var value = event.target.value
-						console.log(value);
-						if (value == "floor"){
-							$("#departed-ramp").attr("checked", false);
-							$("#departed-ramp").checkboxradio('refresh');
-							$("#departed-ramp").checkboxradio('disable');
-						}else{
-							$("#departed-ramp").checkboxradio('enable');
-						}
-					//if (event.target.innerText.toLower() == 'floor'){}
-				}
-				
-				$( "#starting-position" ).on( 'slidestop', onStartPosChange );
-			</script>
-		</div>
-		
-		<hr>
-		
-		<fieldset data-role="controlgroup" data-type="horizontal">
-			<input type="checkbox" name="departed-ramp" id="departed-ramp" class="custom" />
-			<label for="departed-ramp">Departed Ramp</label>
-			<input type="checkbox" name="knocked-kickstand" id="checkbox-2" class="custom" />
-			<label for="checkbox-2">Kickstand</label>
-			<input type="checkbox" name="parked" id="checkbox-3" class="custom" />
-			<label for="checkbox-3">Parked</label>
-		</fieldset>
-		
-		<!--<fieldset data-role="controlgroup" data-type="horizontal">
-			<input type="checkbox" name="auto-scored-small" id="checkbox-10" class="custom" />
-				<label for="checkbox-10">Short</label>
-			<input type="checkbox" name="auto-scored-medium" id="checkbox-11" class="custom" />
-				<label for="checkbox-11">Medium</label>
-			<input type="checkbox" name="auto-scored-tall" id="checkbox-12" class="custom" />
-				<label for="checkbox-12">Tall</label>
-			<input type="checkbox" name="auto-scored-center" id="checkbox-13" class="custom" />
-				<label for="checkbox-13">Center</label>
-			</fieldset>-->
-
-			<div class="ui-grid-a">
-				<div class="ui-block-a">
-					<select name="auto-smallball" id="auto-smallball">
-						<option value="">Small ball</option>
-						<option value="30">30cm tube</option>
-						<option value="60">60cm tube</option>
-						<option value="90">90cm tube</option>
-						<option value="120">120cm tube</option>
-					</select>
-				</div>
-				<div class="ui-block-b">
-					<select name="auto-largeball" id="auto-largeball">
-						<option value="">Large ball</option>
-						<option value="30">30cm tube</option>
-						<option value="60">60cm tube</option>
-						<option value="90">90cm tube</option>
-						<option value="120">120cm tube</option>
-					</select>
-				</div>
-			</div>
-
-			<div class="ui-grid-a">
-				<div class="ui-block-a">
-					<select name="auto-dragging" id="auto-dragging">
-						<option value="0">0 goals parked</option>
-						<option value="1">1 goal parked</option>
-						<option value="2">2 goals parked</option>
-						<option value="3">3 goals parked</option>
-					</select>
-				</div>
-				<div class="ui-block-b">
-					<select name="auto-defense" id="auto-defense">
-						<option value="none">No Defense</option>
-						<option value="ineffective">Ineffective</option>
-						<option value="effective">Effective</option>
-					</select>
-				</div>
-			</div>
-			<hr>
-
-			<div data-role="fieldcontain">
-				<!--<label for="teleop-30cm">30cm:</label>-->
-				<input type="range" name="teleop-30cm" id="teleop-30cm" value="0" min="0" max="30" step="1" data-highlight="true"/>
-				<!--<label for="teleop-60cm">60cm:</label>-->
-				<input type="range" name="teleop-60cm" id="teleop-60cm" value="0" min="0" max="60" step="2" data-highlight="true"/>
-				<!--<label for="teleop-90cm">90cm:</label>-->
-				<input type="range" name="teleop-90cm" id="teleop-90cm" value="0" min="0" max="90" step="3" data-highlight="true"/>
-			</div>
-
-			<div data-role="fieldcontain"> <!--Endgame-->
-				<!--<label for="teleop-30cm">30cm:</label>-->
-				<input type="range" name="endgame-120cm" id="teleop-30cm" value="0" min="0" max="30" step="1" data-highlight="true"/>
+			<form onsubmit="saveForm()">
 				<div class="ui-grid-b">
 					<div class="ui-block-a">
-						<select name="endgame-parking" id="endgame-parking">
+						<select	 name="alliance" id="A" data-role="slider">
+							<option value="r">Red</option>
+							<option value="b">Blue</option>
+						</select> 
+					</div>
+					<div class="ui-block-b">
+						<input type="number" placeholder="Team ####" name="teamNum" id="N" value=""/>
+					</div>
+					<div class="ui-block-c">
+						<select name="starting-position" id="s" data-role="slider">
+							<option value="R">Ramp</option>
+							<option value="F">Floor</option>
+						</select> 
+					</div>
+				</div>
+
+				<hr>
+
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<input type="checkbox" name="departed-ramp" id="r" class="custom" />
+					<label for="r">Departed Ramp</label>
+					<input type="checkbox" name="knocked-kickstand" id="k" class="custom" />
+					<label for="k">Kickstand</label>
+					<input type="checkbox" name="parked" id="p" class="custom" />
+					<label for="p">Parked</label>
+				</fieldset>
+
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<select name="auto-smallball" id="sb">
+							<option value="">Small ball</option>
+							<option value="30">30cm tube</option>
+							<option value="60">60cm tube</option>
+							<option value="90">90cm tube</option>
+							<option value="120">120cm tube</option>
+						</select>
+					</div>
+					<div class="ui-block-b">
+						<select name="auto-largeball" id="lb">
+							<option value="">Large ball</option>
+							<option value="30">30cm tube</option>
+							<option value="60">60cm tube</option>
+							<option value="90">90cm tube</option>
+							<option value="120">120cm tube</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<select name="auto-dragging" id="drag">
 							<option value="0">0 goals parked</option>
 							<option value="1">1 goal parked</option>
 							<option value="2">2 goals parked</option>
@@ -143,25 +102,61 @@
 						</select>
 					</div>
 					<div class="ui-block-b">
-						<select name="endgame-ramping" id="endgame-ramping">
-							<option value="0">0 goals ramped</option>
-							<option value="1">1 goal ramped</option>
-							<option value="2">2 goals ramped</option>
-							<option value="3">3 goals ramped</option>
-						</select>
-					</div>
-					<div class="ui-block-c">
-						<select name="endgame-robot" id="endgame-robot">
-							<option value="none">None</option>
-							<option value="ineffective">On ramp (robot)</option>
-							<option value="effective">In Parking Zone (robot)</option>
+						<select name="auto-defense" id="d">
+							<option value="none">No Defense</option>
+							<option value="ineffective">Ineffective</option>
+							<option value="effective">Effective</option>
 						</select>
 					</div>
 				</div>
-			</div>
+				<hr>
 
-
-
+				<div data-role="fieldcontain">
+					<!--<label for="teleop-30cm">30cm:</label>-->
+					<input type="range" name="teleop-30cm" id="3" value="0" min="0" max="30" step="1" data-highlight="true"/>
+					<!--<label for="teleop-60cm">60cm:</label>-->
+					<input type="range" name="teleop-60cm" id="6" value="0" min="0" max="60" step="2" data-highlight="true"/>
+					<!--<label for="teleop-90cm">90cm:</label>-->
+					<input type="range" name="teleop-90cm" id="9" value="0" min="0" max="90" step="3" data-highlight="true"/>
+				</div>
+				<hr>
+				<div data-role="fieldcontain"> <!--Endgame-->
+					<input type="range" name="endgame-120cm" id="12" value="0" min="0" max="30" step="1" data-highlight="true"/>
+					<div class="ui-grid-b">
+						<div class="ui-block-a">
+							<select name="endgame-parking" id="D">
+								<option value="0">0 goals parked</option>
+								<option value="1">1 goal parked</option>
+								<option value="2">2 goals parked</option>
+								<option value="3">3 goals parked</option>
+							</select>
+						</div>
+						<div class="ui-block-b">
+							<select name="endgame-ramping" id="R">
+								<option value="0">0 goals ramped</option>
+								<option value="1">1 goal ramped</option>
+								<option value="2">2 goals ramped</option>
+								<option value="3">3 goals ramped</option>
+							</select>
+						</div>
+						<div class="ui-block-c">
+							<select name="endgame-robot" id="H">
+								<option value="none">None</option>
+								<option value="ineffective">On ramp (robot)</option>
+								<option value="effective">In Parking Zone (robot)</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<input type="number" placeholder="Round ##" name="roundNum" id="R" value=""/>
+					</div>
+					<div class="ui-block-b">
+						<button type="submit" class="submitButton">Submit</button>
+					</div>
+				</div>
+			</form>
 		</div><!-- /content -->
 
 	</div><!-- /page -->
