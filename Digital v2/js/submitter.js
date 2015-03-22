@@ -20,11 +20,17 @@ function toCodedString (form){
 	return str.join(',')
 }
 
+if (!localStorage.savedRounds){
+	localStorage.savedRounds = JSON.stringify([])
+}
+var rounds = JSON.parse(localStorage.savedRounds)
+
 function saveForm(){
 	var form = event.target;
 	var str = toCodedString(form)
 	console.log(str)
-
+	rounds.push(str)
+	localStorage.savedRounds = JSON.stringify(rounds);
 }
 
 window.setInterval(function(){
