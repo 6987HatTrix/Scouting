@@ -1,45 +1,50 @@
 package hello
 
 import (
-    "fmt"
-    "html/template"
-    "net/http"
+	"appengine"
+	"appengine/urlfetch"
+	"bytes"
+	"fmt"
+	"html/template"
+	"net/http"
+	"net/url"
 )
 
 func init() {
-    http.HandleFunc("/", root)
-    http.HandleFunc("/sign", sign)
+	http.HandleFunc("/submit", sign)
 }
-
-func root(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprint(w, guestbookForm)
-}
-
-const guestbookForm = `
-<html>
-  <body>
-    <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
-    </form>
-  </body>
-</html>
-`
 
 func sign(w http.ResponseWriter, r *http.Request) {
-    err := signTemplate.Execute(w, r.FormValue("content"))
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-    }
+	//err := signTemplate.Execute(w, r.FormValue("data"))
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// }
+	c := appengine.NewContext(r)
+	sendDataToSheet(r.FormValue("data"), c, w)
+}
+
+func sendDataToSheet(str string, c appengine.Context, w http.ResponseWriter) {
+	str = url.QueryEscape(str)
+	client := urlfetch.Client(c)
+	resp, err := client.Get("https://script.google.com/macros/s/AKfycbwzAS6AuvQvQYoqIDMogjZgGVltcs9pC0IDOH4RiecYuMjAELmt/exec" + "?data=" + str)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(resp.Body)
+
+	fmt.Fprintf(w, buf.String())
 }
 
 var signTemplate = template.Must(template.New("sign").Parse(signTemplateHTML))
 
 const signTemplateHTML = `
 <html>
-  <body>
-    <p>You wrote:</p>
-    <pre>{{.}}</pre>
-  </body>
+<body>
+<p>You wrote:</p>
+<pre>{{.}}</pre>
+</body>
 </html>
 `
