@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html><!-- manifest="js/manifest.appcache">-->
+<head> 
+	<title>My Page</title> 
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> 
+	<!--<link rel="stylesheet" href="js/lib/jquery.mobile-1.2.0.min.css" />-->
+	<link rel="stylesheet" type="text/css" href="js/styles.css" />
+	<script src="js/lib/interact.js"></script>
+	<script src="js/lib/jquery-1.8.2.min.js"></script>
+	<!--<script src="js/lib/jquery.mobile-1.2.0.min.js"></script>-->
+	
+	<script src="js/submitter.js"></script>
+	<script src="js/draggingstuff.js"></script>
+</head> 
+<body> 
+	<div id="dragboundary"></div>
+	<div data-team="red1" style="top:0; position: absolute;" class="redbox box dropzone">
+		<div data-meaning="alliance=Red"></div>
+		Red 1
+	</div>
+	<div data-team="red2" style="bottom:0; position: absolute;" class="redbox box dropzone">
+		<div data-meaning="alliance=Red"></div>
+		Red 2
+	</div>
+	<div data-team="blue1" style="top:0; position: absolute;" class="bluebox box dropzone">
+		<div data-meaning="alliance=Blue"></div>
+		Blue 1
+	</div>
+	<div data-team="blue2" style="bottom:0; position: absolute;" class="bluebox box dropzone">
+		<div data-meaning="alliance=Blue"></div>
+		Blue 2
+	</div>
+	
+	<div style="display:none">
+		<div id="slidersTemplate">
+			<p class="30 slider" style="display:none"> 30:<input type="range" data-baseMeaning="teleop-30cm=" value="0" max="60" step="6"/></p>
+			<p class="60 slider" style="display:none"> 60:<input type="range" data-baseMeaning="teleop-60cm=" value="0" max="60" step="6"/></p>
+			<p class="90 slider" style="display:none"> 90:<input type="range" data-baseMeaning="teleop-90cm=" value="0" max="60" step="6"/></p>
+			<p class="120 slider" style="display:none">120:<input type="range" data-baseMeaning="endgame-120cm=" value="0" max="60" step="6"/></p>
+		</div>
+	</div>
+	
+	<div id="tools" class="tools dropzone">
+		<img class="tool draggable" src="js/img/onramp.png" data-meaning="starting-position = Ramp">
+		<img style="top:15%" class="tool draggable" src="js/img/downramp.png" data-meaning="departed-ramp = true">
+		<img style="top:30%" class="tool draggable complex" src="js/img/60tube.png" data-class="60">
+	</div>
+
+</body>
+</html>

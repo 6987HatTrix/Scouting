@@ -1,0 +1,76 @@
+.redbox {
+	background-color: #fcc;
+	left: 0;
+	text-align: right;
+}
+
+.bluebox {
+	background-color: #ccf;
+	right: 0;
+	text-align: left;
+}
+
+.box {
+	border-radius: 10px;
+	width: 40%;
+	height: 45%;
+}
+
+.tools {
+	position: absolute;
+	left: 42%;
+	right: 42%;
+	top: 2%;
+	bottom: 2%;
+	border-radius: 10px;
+	background-color: lightgray;
+}
+
+.tool{
+	position: absolute;
+	width: 45%;
+	left: 5%;
+}
+
+.startHidden{
+	display: none;
+}
+
+#dragboundary{
+	position: absolute;
+	left: 3%;
+	right: 3%;
+	top: 3%;
+	height: 94%;
+}
+
+body{
+	position: absolute;
+	height: 95%;
+	width: 99%;
+}
+
+
+.dropzone {
+  border: dashed 4px transparent;
+  transition: background-color 0.3s;
+  margin: 4px;
+}
+
+.drop-active {
+  border-color: #aaa;
+}
+
+.drop-target {
+  background-color: #29e;
+  border-color: #fff;
+  border-style: solid;
+}
+
+.slider {
+	width:100%;
+}
+
+.slider input {
+	width: 40%
+}
