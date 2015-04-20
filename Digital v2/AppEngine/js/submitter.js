@@ -13,7 +13,11 @@ function toCodedString (form){
 	for (var i = 0; i < elements.length; i++){
 		var e = elements[i]
 		if (!e.id) continue;
-		obj[e.name] = e.value
+		if(e.type == "checkbox"){
+			obj[e.name] = e.checked
+		}else{
+			obj[e.name] = e.value
+		}
 		//console.log("id: %s, value: %s", e.id, e.value)
 
 	}
@@ -31,6 +35,10 @@ function saveForm(){
 	console.log(str) 
 	rounds.push(str)
 	localStorage.savedRounds = JSON.stringify(rounds);
+	// form.reset()
+	// $(".slider").val(0).slider("refresh");
+
+	// $("input[type='checkbox']").checkboxradio("refresh");
 }
 
 function submitOnline(string){
@@ -58,4 +66,17 @@ window.setInterval(function(){
 	}
 	$('.submitButton').button('refresh')
 
+	if (rounds.length > 0){
+		$('#NumberUnsubmitted').text(rounds.length + " round(s) saved offline")
+	}else{
+		$('#NumberUnsubmitted').text("")
+	}
 }, 200)
+
+window.setInterval(function(){
+	if(window.navigator.onLine){
+		for (var i = 0; i < rounds.length; i++){
+			submitOnline(rounds[i])
+		}
+	}
+}, 10000)

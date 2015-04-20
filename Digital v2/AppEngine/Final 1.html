@@ -1,11 +1,11 @@
 <!DOCTYPE html> 
-<html> 
+<html manifest="js/manifest.appcache">
 <head> 
 	<title>My Page</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<link rel="stylesheet" href="js/lib/jquery.mobile-1.2.0.min.css" />
+	<script src="js/lib/jquery-1.8.2.min.js"></script>
+	<script src="js/lib/jquery.mobile-1.2.0.min.js"></script>
 	
 	<script src="js/submitter.js"></script>
 
@@ -31,42 +31,53 @@
 			function(){$( "#starting-position" ).on( 'slidestop', onStartPosChange );}
 			);
 	</script>
+
+
+	<script type="text/javascript">
+		$( document ).delegate("#mainPage", "pagebeforecreate", function() {
+			//alert('A page with an id of "aboutPage" is about to be created by jQuery Mobile!');
+			$('#column2').html($('#column1').html());
+		});
+	</script>
 </head> 
 <body> 
 
-	<div data-role="page">
+	<div data-role="page" id="mainPage">
 
 		<div data-role="header">
 			<h1>Digital Scouting</h1>
 		</div><!-- /header -->
 
 		<div data-role="content">	
-			<form onsubmit="saveForm()" target="#">
-				<div class="ui-grid-b">
-					<div class="ui-block-a">
-						<select	 name="alliance" id="A" data-role="slider">
-							<option value="Red">Red</option>
-							<option value="Blue">Blue</option>
-						</select> 
-					</div>
-					<div class="ui-block-b">
-						<input type="number" placeholder="Team ####" name="team-number" id="N" value=""/>
-					</div>
-					<div class="ui-block-c">
-						<select name="starting-position" id="s" data-role="slider">
-							<option value="Ramp">Ramp</option>
-							<option value="Floor">Floor</option>
-						</select> 
-					</div>
-				</div>
+			<div class="ui-grid-a">
+				<div class="ui-block-a" id="column1">
 
-				<hr>
+					<form onsubmit="saveForm()" target="#">
+						<div class="ui-grid-b">
+							<div class="ui-block-a">
+								<select	 name="alliance" id="A" data-role="slider">
+									<option value="Red">Red</option>
+									<option value="Blue">Blue</option>
+								</select> 
+							</div>
+							<div class="ui-block-b">
+								<input type="number" placeholder="Team ####" name="team-number" id="N" value=""/>
+							</div>
+							<div class="ui-block-c">
+								<select name="starting-position" id="s" data-role="slider">
+									<option value="Ramp">Ramp</option>
+									<option value="Floor">Floor</option>
+								</select> 
+							</div>
+						</div>
 
-				<fieldset data-role="controlgroup" data-type="horizontal">
-					<input type="checkbox" name="departed-ramp" id="r" class="custom" />
-					<label for="r">Departed Ramp</label>
-					<input type="checkbox" name="knocked-kickstand" id="k" class="custom" />
-					<label for="k">Kickstand</label>
+						<hr>
+
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<input type="checkbox" name="departed-ramp" id="r" class="custom" />
+							<label for="r">Departed Ramp</label>
+							<input type="checkbox" name="knocked-kickstand" id="k" class="custom" />
+							<label for="k">Kickstand</label>
 					<!--<input type="checkbox" name="parked" id="p" class="custom" />
 					<label for="p">Parked</label>-->
 				</fieldset>
@@ -74,7 +85,7 @@
 				<div class="ui-grid-a">
 					<div class="ui-block-a">
 						<select name="auto-smallball" id="sb">
-							<option value="none">Small ball</option>
+							<option value="0">Small ball</option>
 							<option value="30">30cm tube</option>
 							<option value="60">60cm tube</option>
 							<option value="90">90cm tube</option>
@@ -83,7 +94,7 @@
 					</div>
 					<div class="ui-block-b">
 						<select name="auto-largeball" id="lb">
-							<option value="none">Large ball</option>
+							<option value="0">Large ball</option>
 							<option value="30">30cm tube</option>
 							<option value="60">60cm tube</option>
 							<option value="90">90cm tube</option>
@@ -113,9 +124,9 @@
 
 				<div data-role="fieldcontain">
 					<!--<label for="teleop-30cm">30cm:</label>-->
-					<input class="slider" type="range" name="teleop-30cm" id="3" value="0" min="0" max="30" step="1" data-highlight="true"/>
+					<input class="slider" type="range" name="teleop-30cm" id="3" value="0" min="0" max="30" step="1" data-highlight="true"/><br>
 					<!--<label for="teleop-60cm">60cm:</label>-->
-					<input class="slider" type="range" name="teleop-60cm" id="6" value="0" min="0" max="60" step="2" data-highlight="true"/>
+					<input class="slider" type="range" name="teleop-60cm" id="6" value="0" min="0" max="60" step="2" data-highlight="true"/><br>
 					<!--<label for="teleop-90cm">90cm:</label>-->
 					<input class="slider" type="range" name="teleop-90cm" id="9" value="0" min="0" max="90" step="3" data-highlight="true"/>
 				</div>
@@ -148,6 +159,7 @@
 						</div>
 					</div>
 				</div>
+				<textarea placeholder="Optional Notes" name="notes" id="textarea"></textarea>
 				<div class="ui-grid-a">
 					<div class="ui-block-a">
 						<input type="number" placeholder="Round ##" name="round-number" id="R" value=""/>
@@ -157,10 +169,15 @@
 					</div>
 				</div>
 			</form>
-			<p id="NumberUnsubmitted" style="color:red; text-align:center"></p>
-		</div><!-- /content -->
+		</div> <!-- /ui-block-a -->
 
-	</div><!-- /page -->
+		<div class="ui-block-b" id="column2">
+		</div>
+	</div><!-- /ui table -->
+	<p style="text-align: center"><span id="NumberUnsubmitted" style="color:red;"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="window.location = window.location">Reset form</a></p>
+</div>
+
+</div><!-- /page -->
 
 </body>
 </html>

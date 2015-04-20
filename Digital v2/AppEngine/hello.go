@@ -5,7 +5,6 @@ import (
 	"appengine/urlfetch"
 	"bytes"
 	"fmt"
-	"html/template"
 	"net/http"
 	"net/url"
 )
@@ -23,10 +22,14 @@ func sign(w http.ResponseWriter, r *http.Request) {
 	sendDataToSheet(r.FormValue("data"), c, w)
 }
 
+const (
+	script_url = "https://script.google.com/macros/s/AKfycbwzAS6AuvQvQYoqIDMogjZgGVltcs9pC0IDOH4RiecYuMjAELmt/exec"
+)
+
 func sendDataToSheet(str string, c appengine.Context, w http.ResponseWriter) {
 	str = url.QueryEscape(str)
 	client := urlfetch.Client(c)
-	resp, err := client.Get("https://script.google.com/macros/s/AKfycbwzAS6AuvQvQYoqIDMogjZgGVltcs9pC0IDOH4RiecYuMjAELmt/exec" + "?data=" + str)
+	resp, err := client.Get(script_url + "?data=" + str)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -37,14 +40,3 @@ func sendDataToSheet(str string, c appengine.Context, w http.ResponseWriter) {
 
 	fmt.Fprintf(w, buf.String())
 }
-
-var signTemplate = template.Must(template.New("sign").Parse(signTemplateHTML))
-
-const signTemplateHTML = `
-<html>
-<body>
-<p>You wrote:</p>
-<pre>{{.}}</pre>
-</body>
-</html>
-`
